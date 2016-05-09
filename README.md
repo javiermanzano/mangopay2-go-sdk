@@ -10,12 +10,12 @@ This project is a [Go](http://www.golang.org) implementation of the [MangoPay HT
 
 Use the api with
 ```bash
-$ go get github.com/gotsunami/mangopay2-go-sdk
+$ go get github.com/javiermanzano/mangopay2-go-sdk
 ```
 
 A command line tool is also available for testing the MangoPay service easily:
 ```bash
-$ go get github.com/gotsunami/mangopay2-go-sdk/mangopay
+$ go get github.com/javiermanzano/mangopay2-go-sdk/mangopay
 ```
 
 Before using it, you must fill a JSON config file with your client credentials ([get your sandbox environment credentials](http://docs.mangopay.com/api-references/sandbox-credentials/)):
@@ -32,8 +32,8 @@ Before using it, you must fill a JSON config file with your client credentials (
 Now run `mangopay` from a terminal to get the list of supported actions:
 ```
 Usage: ./mangopay [options] action configfile
- 
-where action is one of: 
+
+where action is one of:
   conf              show config
   events            list all events (PayIns, PayOuts, Transfers)
   users             list all users
