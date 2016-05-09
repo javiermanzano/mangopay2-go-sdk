@@ -123,7 +123,11 @@ func (w *Wallet) Save() error {
 
 // Transactions returns a wallet's transactions.
 func (w *Wallet) Transactions() (TransferList, error) {
-	k, err := w.service.anyRequest(new(TransferList), actionFetchWalletTransactions, JsonObject{"Id": w.Id})
+	return w.TransactionsBetweenDates(nil)
+}
+
+func (w *Wallet) TransactionsBetweenDates(queryParams map[string]string) (TransferList, error) {
+	k, err := w.service.anyRequestWithQueryParams(new(TransferList), actionFetchWalletTransactions, JsonObject{"Id": w.Id}, queryParams)
 	if err != nil {
 		return nil, err
 	}

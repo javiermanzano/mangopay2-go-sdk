@@ -116,9 +116,13 @@ func (m *MangoPay) Option(opts ...option) {
 	}
 }
 
+func (s *MangoPay) request(ma mangoAction, data JsonObject) (*http.Response, error) {
+	return s.requestWithParams(ma, data, nil)
+}
+
 // request prepares and sends a well formatted HTTP request to the
 // mangopay service.
-func (s *MangoPay) request(ma mangoAction, data JsonObject) (*http.Response, error) {
+func (s *MangoPay) requestWithParams(ma mangoAction, data JsonObject, queryParams map[string]string) (*http.Response, error) {
 	mr, ok := mangoRequests[ma]
 	if !ok {
 		return nil, errors.New("Action not implemented.")
@@ -136,6 +140,16 @@ func (s *MangoPay) request(ma mangoAction, data JsonObject) (*http.Response, err
 		}
 	} else {
 		path = mr.Path
+	}
+
+	// Add query if they were provided
+	if queryParams != nil {
+		keys := make([]string, 0, len(queryParams))
+		for k := range queryParams {
+	    keys = append(keys, k + "=" + queryParams[k])
+	  }
+		qp := strings.Join(keys, "&")
+		path = fmt.Sprintf("%s?%s ", path, qp)
 	}
 
 	body, err := json.Marshal(data)
@@ -245,7 +259,17 @@ func (m *MangoPay) unMarshalJSONResponse(resp *http.Response, v interface{}) err
 
 // Generic request for any object.
 func (m *MangoPay) anyRequest(o interface{}, action mangoAction, data JsonObject) (interface{}, error) {
-	resp, err := m.request(action, data)
+	return m.anyRequestWithQueryParams(o, action, data, nil)
+}
+
+func (m *MangoPay) anyRequestWithQueryParams(o interface{}, action mangoAction, data JsonObject, queryParams map[string]string) (interface{}, error) {
+	var resp *http.Response
+	var err error
+	if queryParams != nil {
+		resp, err = m.requestWithParams(action, data, queryParams)
+	} else {
+		resp, err = m.request(action, data)
+	}
 	if err != nil {
 		return nil, err
 	}
