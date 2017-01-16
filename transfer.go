@@ -61,7 +61,7 @@ func (m *MangoPay) NewTransfer(author Consumer, amount Money, fees Money, from, 
 	if to.Id == "" {
 		return nil, errors.New(msg + "dest wallet has empty Id")
 	}
-	id := consumerId(author)
+	id := author.GetId()
 	if id == "" {
 		return nil, errors.New(msg + "author has empty Id")
 	}
@@ -142,7 +142,7 @@ func (m *MangoPay) Transfers(user Consumer) (TransferList, error) {
 }
 
 func (m *MangoPay) transfers(u Consumer) (TransferList, error) {
-	id := consumerId(u)
+	id := u.GetId()
 	if id == "" {
 		return nil, errors.New("user has empty Id")
 	}

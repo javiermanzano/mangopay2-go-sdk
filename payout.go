@@ -56,7 +56,7 @@ func (m *MangoPay) NewPayOut(author Consumer, amount Money, fees Money, from *Wa
 	if to == nil {
 		return nil, errors.New(msg + "nil bank account")
 	}
-	id := consumerId(author)
+	id := author.GetId()
 	if id == "" {
 		return nil, errors.New(msg + "author has empty Id")
 	}

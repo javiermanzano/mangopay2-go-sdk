@@ -28,6 +28,10 @@ func (u *NaturalUser) String() string {
 	return struct2string(u)
 }
 
+func (u *NaturalUser) GetId() string {
+	return u.Id
+}
+
 // NewNaturalUser creates a new natural user.
 func (m *MangoPay) NewNaturalUser(first, last string, email string, birthday int64, nationality, country string) *NaturalUser {
 	u := &NaturalUser{
