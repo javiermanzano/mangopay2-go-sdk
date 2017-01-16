@@ -47,7 +47,7 @@ func (u *Wallet) String() string {
 func (m *MangoPay) NewWallet(owners ConsumerList, desc string, currency string) (*Wallet, error) {
 	all := []string{}
 	for k, o := range owners {
-		id := consumerId(o)
+		id := o.GetId()
 		if id == "" {
 			return nil, errors.New(fmt.Sprintf("Empty Id for owner %d. Unable to create wallet.", k))
 		}
@@ -146,7 +146,7 @@ func (m *MangoPay) Wallet(id string) (*Wallet, error) {
 }
 
 func (m *MangoPay) wallets(u Consumer) (WalletList, error) {
-	id := consumerId(u)
+	id := u.GetId()
 	if id == "" {
 		return nil, errors.New("user has empty Id")
 	}

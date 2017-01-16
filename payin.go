@@ -87,7 +87,7 @@ func (m *MangoPay) NewWebPayIn(author Consumer, amount Money, fees Money, credit
 	if credit == nil {
 		return nil, errors.New(msg + "nil dest wallet")
 	}
-	id := consumerId(author)
+	id := author.GetId()
 	if id == "" {
 		return nil, errors.New(msg + "author has empty Id")
 	}
@@ -184,7 +184,7 @@ func (m *MangoPay) NewDirectPayIn(from, to Consumer, src *Card, dst *Wallet, amo
 
 	cons := make([]string, 2)
 	for k, con := range []Consumer{from, to} {
-		id := consumerId(con)
+		id := con.GetId()
 		cons[k] = id
 	}
 

@@ -32,6 +32,10 @@ func (u *LegalUser) String() string {
 	return struct2string(u)
 }
 
+func (u *LegalUser) GetId() string {
+	return u.Id
+}
+
 // NewLegalUser creates a new legal user.
 func (m *MangoPay) NewLegalUser(name string, email string, personType string, legalFirstName, legalLastName string, birthday int64, nationality string, country string) *LegalUser {
 	u := &LegalUser{

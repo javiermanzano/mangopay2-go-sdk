@@ -4,8 +4,6 @@
 
 package mango
 
-import ()
-
 // A Consumer is a legal or natural user with zero, one or
 // more wallets and tranfers.
 type Consumer interface {
@@ -13,6 +11,8 @@ type Consumer interface {
 	Wallets() (WalletList, error)
 	// All user's transactions
 	Transfers() (TransferList, error)
+	// Gets user's id
+	GetId() string
 }
 
 type UserList []*User

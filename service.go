@@ -146,8 +146,8 @@ func (s *MangoPay) requestWithParams(ma mangoAction, data JsonObject, queryParam
 	if queryParams != nil {
 		keys := make([]string, 0, len(queryParams))
 		for k := range queryParams {
-	    keys = append(keys, k + "=" + queryParams[k])
-	  }
+			keys = append(keys, k+"="+queryParams[k])
+		}
 		qp := strings.Join(keys, "&")
 		path = fmt.Sprintf("%s?%s ", path, qp)
 	}
@@ -317,15 +317,4 @@ func struct2string(c interface{}) string {
 		}
 	}
 	return b.String()
-}
-
-func consumerId(c Consumer) string {
-	id := ""
-	switch c.(type) {
-	case *LegalUser:
-		id = c.(*LegalUser).Id
-	case *NaturalUser:
-		id = c.(*NaturalUser).Id
-	}
-	return id
 }

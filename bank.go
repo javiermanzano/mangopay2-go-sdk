@@ -77,7 +77,7 @@ func (b *BankAccount) String() string {
 //
 // See http://docs.mangopay.com/api-references/bank-accounts/
 func (m *MangoPay) NewBankAccount(user Consumer, ownerName, ownerAddress string, t AccountType) (*BankAccount, error) {
-	id := consumerId(user)
+	id := user.GetId()
 	if id == "" {
 		return nil, errors.New("user has empty Id")
 	}
@@ -156,7 +156,7 @@ func (b *BankAccount) Save() error {
 
 // BankAccount returns a user's bank account.
 func (m *MangoPay) BankAccount(user Consumer, id string) (*BankAccount, error) {
-	userId := consumerId(user)
+	userId := user.GetId()
 	if userId == "" {
 		return nil, errors.New("user has empty Id")
 	}
@@ -170,7 +170,7 @@ func (m *MangoPay) BankAccount(user Consumer, id string) (*BankAccount, error) {
 
 // BankAccounts finds all user's bank accounts.
 func (m *MangoPay) BankAccounts(user Consumer) (BankAccountList, error) {
-	userId := consumerId(user)
+	userId := user.GetId()
 	if userId == "" {
 		return nil, errors.New("user has empty Id")
 	}
